@@ -1,5 +1,7 @@
 # CISCO_FTD Ansible Collection
 
+## WARNING: DO NOT USE YET, UNDER DEVELOPMENT, NOT EVEN ALPHA
+
 The Ansible collection includes ``ftd`` terminal and cliconf plugins that allow you to use it as ``ansible_network_os`` under ``network_cli`` connection.
 
 This collection has been tested against Cisco FTD version 7.0.1
@@ -14,6 +16,7 @@ This collection has been tested against following Ansible versions: **>=2.9.10,<
 
 Nothing special.
 
+<! --
 ## Installing this collection
 
 Create a local ansible.cfg and specify the collections_paths configuration to locate the collections. See sample directory structure below
@@ -40,21 +43,22 @@ You can also include it in a `requirements.yml` file and install it with `ansibl
 collections:
   - name: alexkross.cisco_ftd_cli
 ```
+-- >
 
-### Using modules from the alexkross.cisco_ftd_cli collection in your playbooks
+### Using alexkross.cisco_ftd_cli collection in your playbooks
 
-You can call modules by their Fully Qualified Collection Namespace (FQCN), such as `amotolani.cisco_fmc.network`.
-The following example task creates Host fmc objects from a loop and deploys this configuration, using the FQCN:
+With the collection installed just call ansible.netcommon.cli_command module targeting a FTD device.
 
 ```yaml
 ---
   - name: Show running configuration
-    cli_command: show running-config
+    cli_command:
+      command: show running-config
     register: reg
   - debug: var=reg.stdout
 ```
 
-For obvious reasons ``cli_config`` is unsupported on a FTD gear managed under FMC. You can try other collections instead, [fmc_collections by amotolani](https://github.com/amotolani/fmc_collections) for example.
+For obvious reasons ``cli_config`` is unsupported on a FTD gear managed under FMC (TDB: backup as the only supported option). You can try other collections instead, [fmc_collections by amotolani](https://github.com/amotolani/fmc_collections) for example.
 
 ### See Also:
 * [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
