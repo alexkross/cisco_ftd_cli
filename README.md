@@ -16,7 +16,7 @@ This collection has been tested against following Ansible versions: **>=2.9.10,<
 
 Nothing special.
 
-<! --
+<!--
 ## Installing this collection
 
 Create a local ansible.cfg and specify the collections_paths configuration to locate the collections. See sample directory structure below
@@ -43,7 +43,7 @@ You can also include it in a `requirements.yml` file and install it with `ansibl
 collections:
   - name: alexkross.cisco_ftd_cli
 ```
--- >
+-->
 
 ### Using alexkross.cisco_ftd_cli collection in your playbooks
 
