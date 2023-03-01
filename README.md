@@ -1,8 +1,10 @@
 # CISCO_FTD Ansible Collection
 
-## WARNING: DO NOT USE YET, UNDER DEVELOPMENT, NOT EVEN ALPHA
+## WARNING: TESTED/USED ONLY FOR ``show running-config``, UNDER DEVELOPMENT, ALPHA VERSION
 
-The Ansible collection includes ``ftd`` terminal and cliconf plugins that allow you to use it as ``ansible_network_os`` under ``network_cli`` connection.
+## ToDo ASAP: module for diagcli_command (``system support diagnostic-cli`` mode).
+
+This Ansible collection includes ``ftd`` terminal and cliconf plugins that allow you to use it as ``ansible_network_os`` under ``network_cli`` connection.
 
 This collection has been tested against Cisco FTD version 7.0.1
 
