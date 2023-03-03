@@ -11,7 +11,8 @@ This collection has been tested against Cisco FTD version 7.0.1
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.9.10,<2.11**.
+This collection has been tested against following Ansible versions: **>=2.14.2**.
+<!-- append ",<2.??" if there is such unsupported -->
 <!--end requires_ansible-->
 
 ## Requirements
