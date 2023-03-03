@@ -1,4 +1,3 @@
-#
 # Copyright (c) 2023 Alexander.Kross@gmail.com all rights reserved.
 #
 # (c) 2017 Red Hat Inc.
@@ -72,46 +71,6 @@ class Cliconf(CliconfBase):
         cmd = cmd.strip()
 
         return self.send_command(cmd)
-
-    #def get_diff(self, candidate=None, running=None, diff_match='line', diff_ignore_lines=None, path=None, diff_replace=None):
-    #    diff = {}
-    #    device_operations = self.get_device_operations()
-    #    option_values = self.get_option_values()
-
-    #    if candidate is None and device_operations['supports_generate_diff']:
-    #        raise ValueError("candidate configuration is required to generate diff")
-
-    #    if diff_match not in option_values['diff_match']:
-    #        raise ValueError("'match' value %s in invalid, valid values are %s" % (diff_match, ', '.join(option_values['diff_match'])))
-
-    #    if diff_replace:
-    #        raise ValueError("'replace' in diff is not supported")
-
-    #    if diff_ignore_lines:
-    #        raise ValueError("'diff_ignore_lines' in diff is not supported")
-
-    #    if path:
-    #        raise ValueError("'path' in diff is not supported")
-
-    #    # prepare candidate configuration
-    #    candidate_obj = NetworkConfig(indent=1)
-    #    want_src, want_banners = self._extract_banners(candidate)
-    #    candidate_obj.load(want_src)
-
-    #    if running and diff_match != 'none':
-    #        # running configuration
-    #        have_src, have_banners = self._extract_banners(running)
-    #        running_obj = NetworkConfig(indent=1, contents=have_src, ignore_lines=diff_ignore_lines)
-    #        configdiffobjs = candidate_obj.difference(running_obj, path=path, match=diff_match, replace=diff_replace)
-
-    #    else:
-    #        configdiffobjs = candidate_obj.items
-    #        have_banners = {}
-
-    #    diff['config_diff'] = dumps(configdiffobjs, 'commands') if configdiffobjs else ''
-    #    banners = self._diff_banners(want_banners, have_banners)
-    #    diff['banner_diff'] = banners if banners else {}
-    #    return diff
 
     @enable_mode
     def edit_config(self, candidate=None, commit=True, replace=None, comment=None):
@@ -213,38 +172,6 @@ class Cliconf(CliconfBase):
         result.update(self.get_option_values())
         return json.dumps(result)
 
-    #def edit_banner(self, candidate=None, multiline_delimiter=None, commit=True):
-    #    """
-    #    Edit banner on remote device
-    #    :param banners: Banners to be loaded in json format
-    #    :param multiline_delimiter: Line delimiter for banner
-    #    :param commit: Boolean value that indicates if the device candidate
-    #           configuration should be  pushed in the running configuration or discarded.
-    #    :param diff: Boolean flag to indicate if configuration that is applied on remote host should
-    #                 generated and returned in response or not
-    #    :return: Returns response of executing the configuration command received
-    #         from remote host
-    #    """
-    #    resp = {}
-    #    banners_obj = json.loads(candidate)
-    #    results = []
-    #    requests = []
-    #    if commit:
-    #        for key, value in iteritems(banners_obj):
-    #            for cmd in [key, value]:
-    #                obj = {'command': cmd, 'sendonly': True}
-    #                results.append(self.send_command(**obj))
-    #                requests.append(cmd)
-
-    #            time.sleep(0.1)
-    #            results.append(self.send_command('\n'))
-    #            requests.append('\n')
-
-    #    resp['request'] = requests
-    #    resp['response'] = results
-
-    #    return resp
-
     def run_commands(self, commands=None, check_rc=True):
         if commands is None:
             raise ValueError("'commands' value is required")
@@ -287,29 +214,3 @@ class Cliconf(CliconfBase):
             return 'all'
         else:
             return 'full'
-
-    #def _extract_banners(self, config):
-    #    banners = {}
-    #    banner_cmds = re.findall(r'^banner (\w+)', config, re.M)
-    #    for cmd in banner_cmds:
-    #        regex = r'banner %s \^C(.+?)(?=\^C)' % cmd
-    #        match = re.search(regex, config, re.S)
-    #        if match:
-    #            key = 'banner %s' % cmd
-    #            banners[key] = match.group(1).strip()
-
-    #    for cmd in banner_cmds:
-    #        regex = r'banner %s \^C(.+?)(?=\^C)' % cmd
-    #        match = re.search(regex, config, re.S)
-    #        if match:
-    #            config = config.replace(str(match.group(1)), '')
-
-    #    config = re.sub(r'banner \w+ \^C\^C', '!! banner removed', config)
-    #    return config, banners
-
-    #def _diff_banners(self, want, have):
-    #    candidate = {}
-    #    for key, value in iteritems(want):
-    #        if value != have.get(key):
-    #            candidate[key] = value
-    #    return candidate
